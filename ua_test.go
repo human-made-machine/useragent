@@ -30,6 +30,7 @@ var testTable = [][]string{
 	{"Mozilla/5.0 (iPhone; CPU iPhone OS 9_3 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) OPiOS/14.0.0.104835 Mobile/13E233 Safari/9537.53", ua.Opera, "14.0.0.104835", "mobile", "iOS", "iPhone"},
 	{"Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_2 like Mac OS X) AppleWebKit/603.2.4 (KHTML, like Gecko) FxiOS/8.1.1b4948 Mobile/14F89 Safari/603.2.4", ua.Firefox, "8.1.1b4948", "mobile", "iOS", "iPhone"},
 	{"Mozilla/5.0 (iPhone; CPU iPhone OS 13_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0 EdgiOS/44.11.15 Mobile/15E148 Safari/605.1.15", ua.Edge, "44.11.15", "mobile", "iOS", "iPhone"},
+	{"Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/8.0.2 Safari/600.2.5", ua.Safari, "8.0.2", "mobile", "iOS", "iPhone"},
 
 	// iPad
 	{"Mozilla/5.0 (iPad; CPU OS 10_3_2 like Mac OS X) AppleWebKit/603.2.4 (KHTML, like Gecko) Version/10.0 Mobile/14F89 Safari/602.1", ua.Safari, "10.0", "tablet", "iOS", "iPad"},
@@ -210,10 +211,10 @@ func TestParse(t *testing.T) {
 	}
 }
 
-func TestSingle(t *testing.T) {
-	agent := ua.Parse("SonyEricssonK310iv/R4DA Browser/NetFront/3.3 Profile/MIDP-2.0 Configuration/CLDC-1.1 UP.Link/6.3.1.13.0")
-	fmt.Printf("\n%+v\n", agent)
-}
+//func TestSingle(t *testing.T) {
+//	agent := ua.Parse("SonyEricssonK310iv/R4DA Browser/NetFront/3.3 Profile/MIDP-2.0 Configuration/CLDC-1.1 UP.Link/6.3.1.13.0")
+//	fmt.Printf("\n%+v\n", agent)
+//}
 
 var testUA ua.UserAgent
 

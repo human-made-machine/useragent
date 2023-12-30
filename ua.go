@@ -318,7 +318,10 @@ func Parse(userAgent string) UserAgent {
 		} else {
 			ua.Version = tokens.get("Safari")
 		}
-		ua.Mobile = tokens.existsAny("Mobile", "Mobile Safari")
+		// If mobile flag has already been set, don't override it.
+		if !ua.Mobile {
+			ua.Mobile = tokens.existsAny("Mobile", "Mobile Safari")
+		}
 
 	default:
 		if ua.OS == "Android" && tokens.get("Version") != "" {
