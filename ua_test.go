@@ -54,6 +54,7 @@ var testTable = [][]string{
 	{"Mozilla/5.0 (Linux; U; Android 11; ru-ru; Redmi Note 10S Build/RP1A.200720.011) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/89.0.4389.116 Mobile Safari/537.36 XiaoMi/MiuiBrowser/12.13.2-gn", "Miui Browser", "12.13.2-gn", "mobile", ua.Android, "Redmi Note 10S"},
 
 	{"Mozilla/5.0 (Linux; Android 10; MED-LX9N; HMSCore 6.6.0.311) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.105 HuaweiBrowser/12.1.0.303 Mobile Safari/537.36", "Huawei Browser", "12.1.0.303", "mobile", "Android"},
+	{"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/22.0 Chrome/111.0.5563.116 Safari/537.36", ua.SamsungBrowser, "22.0", "mobile", ua.Android},
 
 	// useragent, name, version, mobile, os
 	{"Mozilla/5.0 (Linux; Android 9; ONEPLUS A6003) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.99 Mobile Safari/537.36", ua.Chrome, "71.0.3578.99", "mobile", ua.Android},
@@ -90,6 +91,8 @@ var testTable = [][]string{
 	{"Mozilla/5.0 (compatible; Yahoo Ad monitoring; https://help.yahoo.com/kb/yahoo-ad-monitoring-SLN24857.html) cnv.aws-prod---sieve.hlfs-rest_client/1681346790-0", "Yahoo Ad monitoring", "", "bot", ""},
 	{"GoogleProber", "GoogleProber", "", "bot", ""},
 	{"GoogleProducer; (+http://goo.gl/7y4SX)", "GoogleProducer", "", "bot", ""},
+	{"Mozilla/5.0 (compatible; Bytespider; spider-feedback@bytedance.com) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.0.0 Safari/537.36", "Bytespider", "", "bot", ""},
+	{"Mozilla/5.0 (Linux; Android 5.0) AppleWebKit/537.36 (KHTML, like Gecko) Mobile Safari/537.36 (compatible; Bytespider; spider-feedback@bytedance.com)", "Bytespider", "", "bot", ua.Android},
 
 	// Google ads bots
 	{"Mozilla/5.0 (Linux; Android 4.0.0; Galaxy Nexus Build/IMM76B) AppleWebKit/537.36 (KHTML, like Gecko; Mediapartners-Google) Chrome/104.0.0.0 Mobile Safari/537.36", ua.GoogleAdsBot, "", "bot", ua.Android},
@@ -153,6 +156,8 @@ var testTable = [][]string{
 	//{`${jndi:ldap://log4shell-generic-8ZnJfq2XFL3GWyaLyOpT${lower:ten}.w.nessus.org/nessus}`, "", "mobile", ua.Android},
 	//
 
+	{"Mozilla/5.0 (Phone; OpenHarmony 5.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36  ArkWeb/4.1.6.1 Mobile", "ArkWeb", "4.1.6.1", "mobile", ua.Harmony, ""},
+
 	//
 	// ${jndi:ldap://log4shell-generic-8ZnJfq2XFL3GWyaLyOpT${lower:ten}.w.nessus.org/nessus}
 
@@ -195,6 +200,10 @@ func TestParse(t *testing.T) {
 				t.Error("\n", ua.String, "should be tablet")
 				fmt.Printf("%+v", ua)
 			}
+			if test[3] == "bot" && !ua.Bot {
+				t.Error("\n", ua.String, "should be bot")
+				fmt.Printf("%+v", ua)
+			}
 		}
 
 		if len(test) > 4 && test[4] != ua.OS {
@@ -210,11 +219,6 @@ func TestParse(t *testing.T) {
 	}
 }
 
-func TestSingle(t *testing.T) {
-	agent := ua.Parse("SonyEricssonK310iv/R4DA Browser/NetFront/3.3 Profile/MIDP-2.0 Configuration/CLDC-1.1 UP.Link/6.3.1.13.0")
-	fmt.Printf("\n%+v\n", agent)
-}
-
 var testUA ua.UserAgent
 
 func BenchmarkUserAgent(b *testing.B) {
@@ -223,6 +227,12 @@ func BenchmarkUserAgent(b *testing.B) {
 			testUA = ua.Parse(test[0])
 		}
 	}
+}
+
+func TestSingle(t *testing.T) {
+	//agent := ua.Parse("SonyEricssonK310iv/R4DA Browser/NetFront/3.3 Profile/MIDP-2.0 Configuration/CLDC-1.1 UP.Link/6.3.1.13.0")
+	agent := ua.Parse("Mozilla/5.0 (Linux; Android 5.0) AppleWebKit/537.36 (KHTML, like Gecko) Mobile Safari/537.36 (compatible; Bytespider; spider-feedback@bytedance.com)")
+	fmt.Printf("\n%+v\n", agent)
 }
 
 func ExampleParse() {
@@ -258,6 +268,9 @@ func ExampleParse() {
 		"Mozilla/5.0 (Linux; U; Android 4.3; en-us; GT-I9300 Build/JSS15J) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30",
 
 		"Mozilla/5.0 (Linux; Android 6.0.1; SAMSUNG SM-A310F/A310FXXU2BQB1 Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/5.4 Chrome/51.0.2704.106 Mobile Safari/537.36",
+
+		// Harmony
+		"Mozilla/5.0 (Phone; OpenHarmony 5.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36  ArkWeb/4.1.6.1 Mobile",
 	}
 
 	for _, s := range userAgents {
