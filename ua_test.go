@@ -17,6 +17,7 @@ var testTable = [][]string{
 	{"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36 OPR/46.0.2597.57", ua.Opera, "46.0.2597.57", "desktop", "macOS"},
 	{"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.91 Safari/537.36 Vivaldi/1.92.917.39", "Vivaldi", "1.92.917.39", "desktop", "macOS"},
 	{"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36 Edg/79.0.309.71", "Edge", "79.0.309.71", "desktop", "macOS"},
+	{"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148", ua.Safari, "", "mobile", ua.MacOS},
 
 	// Windows
 	{"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36", ua.Chrome, "59.0.3071.115", "desktop", "Windows"},
@@ -55,6 +56,9 @@ var testTable = [][]string{
 
 	{"Mozilla/5.0 (Linux; Android 10; MED-LX9N; HMSCore 6.6.0.311) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.105 HuaweiBrowser/12.1.0.303 Mobile Safari/537.36", "Huawei Browser", "12.1.0.303", "mobile", "Android"},
 	{"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/22.0 Chrome/111.0.5563.116 Safari/537.36", ua.SamsungBrowser, "22.0", "mobile", ua.Android},
+
+	{"Mozilla/5.0 (Linux; All Android; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Mobile Safari/537.36", ua.Chrome, "127.0.0.0", "mobile", "Android"},
+	{"Mozilla/5.0 (Linux; Android 16 Beta 2; Z832 Build/MMB29M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.6998.35/36 Mobile Safari/537.36", ua.Chrome, "134.0.6998.35/36", "mobile", ua.Android},
 
 	// useragent, name, version, mobile, os
 	{"Mozilla/5.0 (Linux; Android 9; ONEPLUS A6003) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.99 Mobile Safari/537.36", ua.Chrome, "71.0.3578.99", "mobile", ua.Android},
@@ -120,6 +124,17 @@ var testTable = [][]string{
 	// other
 	{"Mozilla/5.0 (X11; CrOS x86_64 14150.74.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.114 Safari/537.36", ua.Chrome, "94.0.4606.114", "desktop", ua.ChromeOS},
 	{"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36 Google (+https://developers.google.com/+/web/snippet/)", ua.Chrome, "56.0.2924.87", "bot", ua.Linux}, // Google+ fetch
+
+	// Miui Browser
+	{"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/109.0.5414.118 Safari/534.24 XiaoMi/MiuiBrowser/17.8.70926 swan-mibrowser", "Miui Browser", "17.8.70926", "mobile", ua.Linux},
+	{"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/109.0.5414.118 Safari/534.24 XiaoMi/MiuiBrowser/17.9.161211 swan-mibrowser", "Miui Browser", "17.9.161211", "mobile", ua.Linux},
+	{"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/109.0.5414.118 Safari/534.24 XiaoMi/MiuiBrowser/18.1.20130 swan-mibrowser", "Miui Browser", "18.1.20130", "mobile", ua.Linux},
+	{"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/112.0.5615.136 Safari/534.24 XiaoMi/MiuiBrowser/14.1.1-gn", "Miui Browser", "14.1.1-gn", "mobile", ua.Linux},
+	{"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/89.0.4389.116 Safari/534.24 Device/liuqin Model/23046RP50C XiaoMi/MiuiBrowser/14.7.76", "Miui Browser", "14.7.76", "mobile", ua.Linux, "23046RP50C"},
+	{"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/89.0.4389.116 Safari/534.24 XiaoMi/MiuiBrowser/13.3.0-gn", "Miui Browser", "13.3.0-gn", "mobile", ua.Linux},
+	{"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/89.0.4389.116 Safari/534.24 XiaoMi/MiuiBrowser/16.9.13 swan-mibrowser", "Miui Browser", "16.9.13", "mobile", ua.Linux},
+	{"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.6261.119 Safari/537.36 Device/dizi Model/2405CRPFDC XiaoMi/MiuiBrowser/14.10.58", "Miui Browser", "14.10.58", "mobile", ua.Linux, "2405CRPFDC"},
+	{"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.6261.119 Safari/537.36 XiaoMi/MiuiBrowser/19.0.120123", "Miui Browser", "19.0.120123", "mobile", ua.Linux},
 
 	// tools
 	{"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) QtWebEngine/5.6.0 Chrome/45.0.2454.101 Safari/537.36", "QtWebEngine", "5.6.0", "", "macOS"},
@@ -188,21 +203,41 @@ func TestParse(t *testing.T) {
 		}
 
 		if len(test) > 3 {
-			if test[3] == "desktop" && ua.Mobile {
-				t.Error("\n", ua.String, "should be desktop type not mobile")
-			}
+			// Check that device type matches and is exclusively set
+			deviceType := test[3]
 
-			if test[3] == "mobile" && !ua.Mobile {
-				t.Error("\n", ua.String, "should be mobile")
-				fmt.Printf("%+v", ua)
-			}
-			if test[3] == "tablet" && !ua.Tablet {
-				t.Error("\n", ua.String, "should be tablet")
-				fmt.Printf("%+v", ua)
-			}
-			if test[3] == "bot" && !ua.Bot {
-				t.Error("\n", ua.String, "should be bot")
-				fmt.Printf("%+v", ua)
+			if deviceType == "desktop" {
+				if !ua.Desktop {
+					t.Error("\n", ua.String, "should be desktop")
+					fmt.Printf("%+v", ua)
+				}
+				if ua.Mobile || ua.Tablet {
+					t.Error("\n", ua.String, "is marked as desktop but also as mobile or tablet")
+					fmt.Printf("%+v", ua)
+				}
+			} else if deviceType == "mobile" {
+				if !ua.Mobile {
+					t.Error("\n", ua.String, "should be mobile")
+					fmt.Printf("%+v", ua)
+				}
+				if ua.Desktop || ua.Tablet {
+					t.Error("\n", ua.String, "is marked as mobile but also as desktop or tablet")
+					fmt.Printf("%+v", ua)
+				}
+			} else if deviceType == "tablet" {
+				if !ua.Tablet {
+					t.Error("\n", ua.String, "should be tablet")
+					fmt.Printf("%+v", ua)
+				}
+				if ua.Desktop || ua.Mobile {
+					t.Error("\n", ua.String, "is marked as tablet but also as desktop or mobile")
+					fmt.Printf("%+v", ua)
+				}
+			} else if deviceType == "bot" {
+				if !ua.Bot {
+					t.Error("\n", ua.String, "should be bot")
+					fmt.Printf("%+v", ua)
+				}
 			}
 		}
 
@@ -215,7 +250,6 @@ func TestParse(t *testing.T) {
 		}
 
 		// fmt.Println(ua.Version, "==>", ua.VersionNoShort())
-
 	}
 }
 

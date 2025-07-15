@@ -86,12 +86,17 @@ func Parse(userAgent string) UserAgent {
 
 	// OS lookup
 	switch {
-	case tokens.exists(Android):
+	case tokens.exists(Android) || tokens.containsAny(Android):
 		ua.OS = Android
 		var osIndex int
 		osIndex, ua.OSVersion = tokens.getIndexValue(Android)
+		if osIndex == -1 {
+			// Try to find index for token containing "Android"
+			osIndex = tokens.findIndexContaining(Android)
+		}
 		ua.Tablet = strings.Contains(strings.ToLower(ua.String), tablet)
 		ua.Device = tokens.findAndroidDevice(osIndex)
+		ua.Mobile = !ua.Tablet
 
 	case tokens.exists("iPhone"):
 		ua.OS = IOS
@@ -118,7 +123,7 @@ func Parse(userAgent string) UserAgent {
 	case tokens.exists("Macintosh"):
 		ua.OS = MacOS
 		ua.OSVersion = tokens.findMacOSVersion()
-		ua.Desktop = true
+		ua.Desktop = !tokens.exists(Mobile) // Set desktop to false if Mobile token exists
 
 	case tokens.exists(Linux):
 		ua.OS = Linux
@@ -152,6 +157,7 @@ func Parse(userAgent string) UserAgent {
 		ua.Version = tokens.get(Googlebot)
 		ua.Bot = true
 		ua.Mobile = tokens.existsAny(Mobile, MobileSafari)
+		ua.Desktop = !ua.Mobile
 
 	case tokens.existsAny("GoogleProber", "GoogleProducer"):
 		if name := tokens.findBestMatch(false); name != "" {
@@ -162,6 +168,7 @@ func Parse(userAgent string) UserAgent {
 	case tokens.exists("Bytespider"):
 		ua.Name = "Bytespider"
 		ua.Mobile = tokens.exists("Mobile Safari")
+		ua.Desktop = !ua.Mobile
 		ua.Bot = true
 
 	case tokens.exists(Applebot):
@@ -169,46 +176,54 @@ func Parse(userAgent string) UserAgent {
 		ua.Version = tokens.get(Applebot)
 		ua.Bot = true
 		ua.Mobile = tokens.existsAny(Mobile, MobileSafari)
+		ua.Desktop = !ua.Mobile
 		ua.OS = ""
 
 	case tokens.get(OperaMini) != "":
 		ua.Name = OperaMini
 		ua.Version = tokens.get(OperaMini)
 		ua.Mobile = true
+		ua.Desktop = false
 
 	case tokens.get("OPR") != "":
 		ua.Name = Opera
 		ua.Version = tokens.get("OPR")
 		ua.Mobile = tokens.existsAny(Mobile, MobileSafari)
+		ua.Desktop = !ua.Mobile
 
 	case tokens.get("OPT") != "":
 		ua.Name = OperaTouch
 		ua.Version = tokens.get("OPT")
 		ua.Mobile = tokens.existsAny(Mobile, MobileSafari)
+		ua.Desktop = !ua.Mobile
 
 	// Opera on iOS
 	case tokens.get("OPiOS") != "":
 		ua.Name = Opera
 		ua.Version = tokens.get("OPiOS")
 		ua.Mobile = tokens.existsAny(Mobile, MobileSafari)
+		ua.Desktop = !ua.Mobile
 
 	// Chrome on iOS
 	case tokens.get("CriOS") != "":
 		ua.Name = Chrome
 		ua.Version = tokens.get("CriOS")
 		ua.Mobile = tokens.existsAny(Mobile, MobileSafari)
+		ua.Desktop = !ua.Mobile
 
 	// Firefox on iOS
 	case tokens.get("FxiOS") != "":
 		ua.Name = Firefox
 		ua.Version = tokens.get("FxiOS")
 		ua.Mobile = tokens.existsAny(Mobile, MobileSafari)
+		ua.Desktop = !ua.Mobile
 
 	case tokens.get(Firefox) != "":
 		ua.Name = Firefox
 		ua.Version = tokens.get(Firefox)
 		ua.Mobile = tokens.exists(Mobile)
 		ua.Tablet = tokens.exists(Tablet)
+		ua.Desktop = !ua.Mobile && !ua.Tablet
 
 	case tokens.get(Vivaldi) != "":
 		ua.Name = Vivaldi
@@ -222,60 +237,71 @@ func Parse(userAgent string) UserAgent {
 		ua.Name = Edge
 		ua.Version = tokens.get("EdgiOS")
 		ua.Mobile = tokens.existsAny(Mobile, MobileSafari)
+		ua.Desktop = !ua.Mobile
 
 	case tokens.get(Edge) != "":
 		ua.Name = Edge
 		ua.Version = tokens.get(Edge)
 		ua.Mobile = tokens.existsAny(Mobile, MobileSafari)
+		ua.Desktop = !ua.Mobile
 
 	case tokens.get("Edg") != "":
 		ua.Name = Edge
 		ua.Version = tokens.get("Edg")
 		ua.Mobile = tokens.existsAny(Mobile, MobileSafari)
+		ua.Desktop = !ua.Mobile
 
 	case tokens.get("EdgA") != "":
 		ua.Name = Edge
 		ua.Version = tokens.get("EdgA")
 		ua.Mobile = tokens.existsAny(Mobile, MobileSafari)
+		ua.Desktop = !ua.Mobile
 
 	case tokens.get("bingbot") != "":
 		ua.Name = Bingbot
 		ua.Version = tokens.get("bingbot")
 		ua.Mobile = tokens.existsAny(Mobile, MobileSafari)
+		ua.Desktop = !ua.Mobile
 
 	case tokens.get(YandexBot) != "":
 		ua.Name = YandexBot
 		ua.Version = tokens.get(YandexBot)
 		ua.Mobile = tokens.existsAny(Mobile, MobileSafari)
+		ua.Desktop = !ua.Mobile
 		ua.Bot = true
 
 	case tokens.get(YandexAdNet) != "":
 		ua.Name = YandexAdNet
 		ua.Version = tokens.get(YandexAdNet)
 		ua.Mobile = tokens.existsAny(Mobile, MobileSafari)
+		ua.Desktop = !ua.Mobile
 		ua.Bot = true
 
 	case tokens.get("SamsungBrowser") != "":
 		ua.Name = SamsungBrowser
 		ua.Version = tokens.get("SamsungBrowser")
 		ua.Mobile = tokens.existsAny(Mobile, MobileSafari)
+		ua.Desktop = !ua.Mobile
 		ua.OS = Android
 
 	case tokens.get("HeadlessChrome") != "":
 		ua.Name = HeadlessChrome
 		ua.Version = tokens.get("HeadlessChrome")
 		ua.Mobile = tokens.existsAny(Mobile, MobileSafari)
+		ua.Desktop = !ua.Mobile
 		ua.Bot = true
 
 	case tokens.existsAny("AdsBot-Google-Mobile", "Mediapartners-Google", "AdsBot-Google"):
 		ua.Name = GoogleAdsBot
 		ua.Bot = true
 		ua.Mobile = ua.IsAndroid() || ua.IsIOS()
+		ua.Desktop = !ua.Mobile
 
 	case tokens.exists("Yahoo Ad monitoring"):
 		ua.Name = "Yahoo Ad monitoring"
 		ua.Bot = true
 		ua.Mobile = ua.IsAndroid() || ua.IsIOS()
+		ua.Desktop = !ua.Mobile
 
 	case tokens.exists("XiaoMi"):
 		miui := tokens.get("XiaoMi")
@@ -283,44 +309,72 @@ func Parse(userAgent string) UserAgent {
 			ua.Name = "Miui Browser"
 			ua.Version = strings.TrimPrefix(miui, "MiuiBrowser/")
 			ua.Mobile = true
+			ua.Desktop = false
+
+			// Extract device model from Xiaomi UA if available
+			deviceModel := tokens.extractXiaomiDevice()
+			if deviceModel != "" {
+				ua.Device = deviceModel
+			}
 		}
+
+	case tokens.exists("IOS_APP"):
+		ua.Name = "iOS App"
+		ua.Version = tokens.get("IOS_APP")
+		ua.Mobile = true
+		ua.Desktop = false
 
 	case tokens.exists("FBAN"):
 		ua.Name = FacebookApp
 		ua.Version = tokens.get("FBAN")
+		ua.Mobile = true
+		ua.Desktop = false
 
 	case tokens.exists("FB_IAB"):
 		ua.Name = FacebookApp
 		ua.Version = tokens.get("FBAV")
+		ua.Mobile = true
+		ua.Desktop = false
 
 	case tokens.startsWith("Instagram"):
 		ua.Name = InstagramApp
 		ua.Version = tokens.findInstagramVersion()
+		ua.Mobile = true
+		ua.Desktop = false
 
 	case tokens.exists("BytedanceWebview"):
 		ua.Name = TiktokApp
 		ua.Version = tokens.get("app_version")
+		ua.Mobile = true
+		ua.Desktop = false
 
 	case tokens.get("HuaweiBrowser") != "":
 		ua.Name = "Huawei Browser"
 		ua.Version = tokens.get("HuaweiBrowser")
 		ua.Mobile = tokens.existsAny(Mobile, MobileSafari)
+		ua.Desktop = !ua.Mobile
 
 	case tokens.exists(BlackBerry):
 		ua.Name = BlackBerry
 		ua.Version = tokens.get(Version)
+		ua.Mobile = true
+		ua.Desktop = false
 
 	case tokens.exists(NetFront):
 		ua.Name = NetFront
 		ua.Version = tokens.get(NetFront)
 		ua.Mobile = true
+		ua.Desktop = false
 
-	// if Chrome and Safari defined, find any other token sent descr
+	// if Chrome and Safari defined, find any other token sent description
 	case tokens.exists(Chrome) && tokens.exists(Safari):
 		name := tokens.findBestMatch(true)
 		if name != "" {
 			ua.Name = name
 			ua.Version = tokens.get(name)
+			// Check if this is a mobile browser
+			ua.Mobile = tokens.existsAny(Mobile, MobileSafari)
+			ua.Desktop = !ua.Mobile
 			break
 		}
 		fallthrough
@@ -329,11 +383,13 @@ func Parse(userAgent string) UserAgent {
 		ua.Name = Chrome
 		ua.Version = tokens.get(Chrome)
 		ua.Mobile = tokens.existsAny(Mobile, MobileSafari)
+		ua.Desktop = !ua.Mobile
 
 	case tokens.exists("Brave Chrome"):
 		ua.Name = Chrome
 		ua.Version = tokens.get("Brave Chrome")
 		ua.Mobile = tokens.existsAny(Mobile, MobileSafari)
+		ua.Desktop = !ua.Mobile
 
 	case tokens.exists(Safari):
 		ua.Name = Safari
@@ -343,13 +399,25 @@ func Parse(userAgent string) UserAgent {
 		} else {
 			ua.Version = tokens.get(Safari)
 		}
-		ua.Mobile = tokens.existsAny(Mobile, MobileSafari)
+		ua.Mobile = tokens.existsAny(Mobile, MobileSafari) || tokens.exists(Mobile)
+		ua.Desktop = !ua.Mobile
+
+	// Fix for MacOS and iOS devices with Mobile token but without browser identification
+	case (ua.OS == MacOS || ua.OS == IOS) && tokens.exists(Mobile):
+		ua.Name = Safari
+		v := tokens.get(Version)
+		if v != "" {
+			ua.Version = v
+		}
+		ua.Mobile = true
+		ua.Desktop = false
 
 	default:
 		if ua.IsAndroid() && tokens.get(Version) != "" {
 			ua.Name = "Android browser"
 			ua.Version = tokens.get(Version)
 			ua.Mobile = true
+			ua.Desktop = false
 		} else {
 			if name := tokens.findBestMatch(false); name != "" {
 				ua.Name = name
@@ -362,11 +430,16 @@ func Parse(userAgent string) UserAgent {
 			if !ua.Mobile {
 				ua.Mobile = tokens.existsAny(Mobile, MobileSafari)
 			}
+			// Update desktop flag based on mobile
+			if ua.Mobile {
+				ua.Desktop = false
+			}
 		}
 	}
 
 	if ua.IsAndroid() {
 		ua.Mobile = true
+		ua.Desktop = false
 	}
 
 	// if tablet, switch mobile to off
@@ -628,7 +701,7 @@ func (p properties) findInstagramVersion() string {
 
 // findBestMatch from the rest of the bunch
 // in first cycle only return key with version value
-// if withVerValue is false, do another cycle and return any token
+// if withVerOnly is false, do another cycle and return any token
 func (p properties) findBestMatch(withVerOnly bool) string {
 	n := 2
 	if withVerOnly {
@@ -688,4 +761,34 @@ func (p *properties) findAndroidDevice(startIndex int) string {
 		}
 	}
 	return ""
+}
+
+// extractXiaomiDevice extracts device model from Xiaomi user agent strings
+func (p *properties) extractXiaomiDevice() string {
+	for _, prop := range p.list {
+		if prop.Key == "Model" && prop.Value != "" {
+			return prop.Value
+		}
+	}
+	return ""
+}
+
+// Check if any property key contains the given substring
+func (p properties) containsAny(substr string) bool {
+	for _, prop := range p.list {
+		if strings.Contains(prop.Key, substr) {
+			return true
+		}
+	}
+	return false
+}
+
+// Find the index of a property whose key contains the given substring
+func (p properties) findIndexContaining(substr string) int {
+	for i, prop := range p.list {
+		if strings.Contains(prop.Key, substr) {
+			return i
+		}
+	}
+	return -1
 }
