@@ -130,6 +130,9 @@ var testTable = [][]string{
 	{"ClickworkerApp/iOS", "ClickworkerApp", "", "mobile", ua.IOS, "iPhone"},
 	{"MOPM_App_Android CASHMART/3.1.0", "MOPM_App_Android CASHMART", "3.1.0", "mobile", ua.Android},
 	{"MOPM_App_iOS CASHMART/3.0.8", "MOPM_App_iOS CASHMART", "3.0.8", "mobile", ua.IOS, "iPhone"},
+	// TV and cast devices that name Android are not phones: no OS, not mobile
+	{"Roku/DVP-9.10 (AndroidTV)", "Roku", "DVP-9.10", "", ""},
+	{"AndroidTV-Player/2.1 (CrKey armv7l 1.56.500000)", "AndroidTV-Player", "2.1", "", ""},
 
 	// tools
 	{"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) QtWebEngine/5.6.0 Chrome/45.0.2454.101 Safari/537.36", "QtWebEngine", "5.6.0", "", "macOS"},

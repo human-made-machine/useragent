@@ -646,9 +646,25 @@ func (p properties) startsWith(value string) bool {
 // looseAndroid reports whether Android is named anywhere outside the standard
 // "Android <version>" token: inside a longer key ("Android 16 - SDK 36",
 // "MOPM_App_Android CASHMART") or as the value of a product ("ClickworkerApp/Android").
+// TV and cast devices name Android too ("AndroidTV", "Android TV", "CrKey",
+// "SMART-TV") and are not phones, so they are excluded and stay unknown.
 func (p properties) looseAndroid() bool {
+	found := false
 	for _, prop := range p.list {
+		if isTVToken(prop.Key) || isTVToken(prop.Value) {
+			return false
+		}
 		if strings.Contains(prop.Key, Android) || prop.Value == Android {
+			found = true
+		}
+	}
+	return found
+}
+
+// isTVToken reports whether a token names a TV or cast platform.
+func isTVToken(s string) bool {
+	for _, marker := range []string{"AndroidTV", "Android TV", "CrKey", "SMART-TV", "SmartTV", "BRAVIA", "GoogleTV"} {
+		if strings.Contains(s, marker) {
 			return true
 		}
 	}
