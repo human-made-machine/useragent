@@ -144,6 +144,32 @@ func Parse(userAgent string) UserAgent {
 		ua.OS = Harmony
 		ua.OSVersion = tokens.get("OpenHarmony")
 		ua.Mobile = true
+
+	// Native survey apps and their SDKs send user agents that name the OS
+	// outside the standard Mozilla comment tokens, for example:
+	//
+	//   Pureprofile/3.0.16 com.pureprofile.sdk/2.0.76 (samsung SM-S938B; Android 16 - SDK: 36; native-app)
+	//   pp-ios-sdk/1.13.0 (iPhone13,2; iOS 26.6.0; native-app)
+	//   ClickworkerApp/Android
+	//   MOPM_App_iOS CASHMART/3.1.0
+	//
+	// None of the exact matches above fire for those, so these looser
+	// matches run last and only when nothing else identified the OS.
+	case tokens.looseAndroid():
+		ua.OS = Android
+		ua.OSVersion = tokens.looseOSVersion(Android)
+		ua.Tablet = strings.Contains(strings.ToLower(ua.String), tablet)
+
+	case tokens.looseIOS():
+		ua.OS = IOS
+		ua.OSVersion = tokens.looseOSVersion(IOS)
+		if tokens.startsWith("iPad") {
+			ua.Device = "iPad"
+			ua.Tablet = true
+		} else {
+			ua.Device = "iPhone"
+			ua.Mobile = true
+		}
 	}
 
 	switch {
@@ -354,6 +380,11 @@ func Parse(userAgent string) UserAgent {
 			if name := tokens.findBestMatch(false); name != "" {
 				ua.Name = name
 				ua.Version = tokens.get(name)
+				if ua.Version == ua.OS {
+					// "ClickworkerApp/Android": the slot after the slash names
+					// the OS, not a version.
+					ua.Version = ""
+				}
 			} else {
 				ua.Name = ua.String
 			}
@@ -610,6 +641,46 @@ func (p properties) startsWith(value string) bool {
 		}
 	}
 	return false
+}
+
+// looseAndroid reports whether Android is named anywhere outside the standard
+// "Android <version>" token: inside a longer key ("Android 16 - SDK 36",
+// "MOPM_App_Android CASHMART") or as the value of a product ("ClickworkerApp/Android").
+func (p properties) looseAndroid() bool {
+	for _, prop := range p.list {
+		if strings.Contains(prop.Key, Android) || prop.Value == Android {
+			return true
+		}
+	}
+	return false
+}
+
+// looseIOS reports whether iOS is named anywhere outside the standard iPhone
+// and iPad tokens: an "iOS <version>" token, a model token such as
+// "iPhone13,2" or "iPad13,4", a longer key ("MOPM_App_iOS CASHMART") or the
+// value of a product ("ClickworkerApp/iOS").
+func (p properties) looseIOS() bool {
+	for _, prop := range p.list {
+		if strings.Contains(prop.Key, IOS) || prop.Value == IOS ||
+			strings.HasPrefix(prop.Key, "iPhone") || strings.HasPrefix(prop.Key, "iPad") {
+			return true
+		}
+	}
+	return false
+}
+
+// looseOSVersion returns the version that follows "<os> " inside a token key,
+// for example "16" from "Android 16 - SDK 36" or "26.6.0" from "iOS 26.6.0".
+// It returns "" when no token carries one.
+func (p properties) looseOSVersion(os string) string {
+	for _, prop := range p.list {
+		if i := strings.Index(prop.Key, os+" "); i != -1 {
+			if ver := findVersion(prop.Key[i+len(os)+1:]); ver != "" {
+				return ver
+			}
+		}
+	}
+	return ""
 }
 
 func (p properties) findInstagramVersion() string {

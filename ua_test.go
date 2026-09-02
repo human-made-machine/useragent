@@ -121,6 +121,16 @@ var testTable = [][]string{
 	{"Mozilla/5.0 (X11; CrOS x86_64 14150.74.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.114 Safari/537.36", ua.Chrome, "94.0.4606.114", "desktop", ua.ChromeOS},
 	{"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36 Google (+https://developers.google.com/+/web/snippet/)", ua.Chrome, "56.0.2924.87", "bot", ua.Linux}, // Google+ fetch
 
+	// Native survey-panel apps and SDKs (real strings captured from production)
+	{"Pureprofile/3.0.16 com.pureprofile.sdk/2.0.76 (samsung SM-S938B; Android 16 - SDK: 36; native-app)", "Pureprofile", "3.0.16", "mobile", ua.Android},
+	{"Pureprofile/3.0.16 com.pureprofile.sdk/2.0.79 (OPPO CPH2195; Android 13 - SDK: 33; native-app)", "Pureprofile", "3.0.16", "mobile", ua.Android},
+	{"pp-ios-sdk/1.13.0 (iPhone13,2; iOS 26.6.0; native-app)", "pp-ios-sdk", "1.13.0", "mobile", ua.IOS, "iPhone"},
+	{"pp-ios-sdk/1.13.0 (iPad13,4; iOS 18.0.1; native-app)", "pp-ios-sdk", "1.13.0", "tablet", ua.IOS, "iPad"},
+	{"ClickworkerApp/Android", "ClickworkerApp", "", "mobile", ua.Android},
+	{"ClickworkerApp/iOS", "ClickworkerApp", "", "mobile", ua.IOS, "iPhone"},
+	{"MOPM_App_Android CASHMART/3.1.0", "MOPM_App_Android CASHMART", "3.1.0", "mobile", ua.Android},
+	{"MOPM_App_iOS CASHMART/3.0.8", "MOPM_App_iOS CASHMART", "3.0.8", "mobile", ua.IOS, "iPhone"},
+
 	// tools
 	{"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) QtWebEngine/5.6.0 Chrome/45.0.2454.101 Safari/537.36", "QtWebEngine", "5.6.0", "", "macOS"},
 	{"Go-http-client/1.1", "Go-http-client", "1.1", "", ""},
