@@ -90,7 +90,7 @@ func Parse(userAgent string) UserAgent {
 		ua.OS = Android
 		var osIndex int
 		osIndex, ua.OSVersion = tokens.getIndexValue(Android)
-		ua.Tablet = strings.Contains(strings.ToLower(ua.String), tablet)
+		ua.Tablet = strings.Contains(strings.ToLower(ua.String), tablet) || tokens.androidBrowserWithoutMobile(ua.String)
 		ua.Device = tokens.findAndroidDevice(osIndex)
 
 	case tokens.exists("iPhone"):
@@ -659,6 +659,26 @@ func (p properties) looseAndroid() bool {
 		}
 	}
 	return found
+}
+
+// androidBrowserWithoutMobile reports whether an Android browser left out the
+// word Mobile, which is how browsers mark a tablet: Chrome on a phone sends
+// "Mobile Safari" and on a tablet plain "Safari", with no other sign of the device.
+// Native app clients leave the word out too and are mostly phones, so only a user
+// agent shaped like a browser counts. TVs also leave it out and are not tablets.
+//
+// The word is matched in the raw string because it is not always its own token:
+// DuckDuckGo on a phone sends "Mobile DuckDuckGo/5 Safari/537.36".
+func (p properties) androidBrowserWithoutMobile(userAgent string) bool {
+	if !strings.HasPrefix(userAgent, "Mozilla/5.0") || !p.exists(Safari) || strings.Contains(userAgent, Mobile) {
+		return false
+	}
+	for _, prop := range p.list {
+		if isTVToken(prop.Key) || isTVToken(prop.Value) {
+			return false
+		}
+	}
+	return true
 }
 
 // isTVToken reports whether a token names a TV or cast platform.
